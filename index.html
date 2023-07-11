@@ -49,10 +49,55 @@
         <li class="list-group-item">A fourth item</li>
         <li class="list-group-item">And a fifth one</li>
     </ul>
+    
 
-    <button class="login-btn">log in</button>
+    <div class="main-bg">
+        <h4>Shits on Sale</h4>
+        <button class="login-btn btn btn-danger">log in</button>
+    </div>
 
+    <!-- <div class="alert alert-danger">
+        <span id="second">5</span>초 이내 구매시 사은품 증정!
+    </div> -->
+    <div style="overflow: hidden;">
+        <div class="slide-container">
+            <div class="slide-box">
+                <img src="car1.png" alt="">
+            </div>
+            <div class="slide-box">
+                <img src="car2.png" alt="">
+            </div>
+            <div class="slide-box">
+                <img src="car3.png" alt="">
+            </div>
+        </div>
+    </div>
+    <button class="slide-1">1</button>
+    <button class="slide-2">2</button>
+    <button class="slide-3">3</button>
+    <button class="next">next</button>
 
+    <div class="policy">
+        Lorem ipsum dolor sit amet consectetur,
+        adipisicing elit. Nemo ea animi quaerat ullam h
+        ic, dolorem, corporis blanditiis, laboriosam expedita
+        suscipit quas adipisci repellendus quisquam! O
+        dio eius dignissimos perferendis, neque volupt
+        ates sit aliquam, repellat iure error quis cup
+        iditate? Doloremque expedita explicabo possimus
+        aut dolorem nobis magni esse, voluptatem nemo quidem
+        . Minus mollitia quasi quam dolorum nobis magni cu
+        mque nisi non officia! Placeat, temporibus eveniet
+        accusantium, quis quia, deleniti doloremque corpo
+        ris eligendi aut consectetur aliquam dolorem dolo
+        res iste maxime autem assumenda harum saepe cumque
+        ea! Minus sapiente animi velit magnam dolore atq
+        ue vel error magni, modi dignissimos saepe possi
+        mus placeat enim quas!
+    </div>
+
+    <div style="height: 1000px;">
+    </div>
 
     <script>
 
@@ -68,27 +113,85 @@
             document.querySelector('.black-bg').classList.remove('visible');
         });
 
-        document.querySelector('form').addEventListener('submit', function () {
-            if (document.querySelector('.id').value == ""
-                || document.querySelector('.password').value == "") {
-                alert('아이디와 비밀번호를 입력하세요');
-            } else if (document.querySelector('.password').value.length < 6) {
-                alert('비밀번호를 6자 이상 입력하세요')
+        document.querySelector('form').addEventListener('submit', function (e) {
+            var email = document.querySelector('.id').value;
+            var password = document.querySelector('.password').value
+            if (/\S+@\S+\.\S+/.test(email) == false) {
+                alert('올바른 이메일을 입력하세요');
+                e.preventDefault();
+            } else if (/[A-Z]/.test(password) == false) {
+                alert('비밀번호에 영문 대문자가 포함되어야 합니다');
+                e.preventDefault();
             }
         });
 
         var count = 0;
-        document.querySelector('.badge').addEventListener('click', function(){
-            count ++;
-            if (count % 2 == 1){
+        document.querySelector('.badge').addEventListener('click', function () {
+            count++;
+            if (count % 2 == 1) {
                 document.querySelector('.badge').innerHTML = 'Light 🔄';
-            } else{
+            } else {
                 document.querySelector('.badge').innerHTML = 'Dark 🔄'
             }
         })
 
-        
-        
+        var second = 5;
+        var timer = setInterval(function () {
+            second--;
+            document.querySelector('#second').innerHTML = second;
+            console.log(second);
+            if (second < 0) {
+                clearInterval(timer)
+                document.querySelector('.alert').classList.add('display-none')
+            };
+        }, 1000);
+
+        var car_status = 1;
+
+        document.querySelector('.slide-1').addEventListener('click', function () {
+            document.querySelector('.slide-container').style.transform = 'translateX(0)';
+            car_status = 1;
+        });
+
+        document.querySelector('.slide-2').addEventListener('click', function () {
+            document.querySelector('.slide-container').style.transform = 'translateX(-100vw)';
+            car_status = 2;
+        });
+
+        document.querySelector('.slide-3').addEventListener('click', function () {
+            document.querySelector('.slide-container').style.transform = 'translateX(-200vw)';
+            car_status = 3;
+        });
+
+        document.querySelector('.next').addEventListener('click', function () {
+            if (car_status == 1) {
+                document.querySelector('.slide-container').style.transform = 'translateX(-100vw)';
+                car_status = 2;
+            } else if (car_status == 2) {
+                document.querySelector('.slide-container').style.transform = 'translateX(-200vw)';
+                car_status = 3;
+            } else {
+                document.querySelector('.slide-container').style.transform = 'translateX(0)';
+                car_status = 1;
+            }
+        });
+
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 100) {
+                document.querySelector('.navbar-brand').style.fontSize = '20px';
+            } else {
+                document.querySelector('.navbar-brand').style.fontSize = '30px';
+            }
+        });
+
+        document.querySelector('.policy').addEventListener('scroll', function(){
+            var scroll_amount = document.querySelector('.policy').scrollTop;
+            var scroll_real = document.querySelector('.policy').scrollHeight;
+            var scroll_area = document.querySelector('.policy').clientHeight
+            if(scroll_amount + scroll_area == scroll_real){
+                alert('약관 다 읽음?ㅋ')
+            }
+        });
 
     </script>
 
