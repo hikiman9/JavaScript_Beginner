@@ -17,4 +17,38 @@ function openTab(arg){
     })
 }
 
+var sonata = {name : 'Sonata', price : [50000, 30000, 70000]}
+var avante = {name : 'Avante', price : '33000'}
 
+document.querySelector('.product').innerHTML = sonata.name;
+document.querySelector('.price').innerHTML = sonata.price[1];
+
+var products = ['모자', '셔츠', '바지'];
+var cap = ['Small', 'Medium', 'Large'];
+var shirt = [95, 100, 105, 110];
+var pants = [28, 29, 30, 31, 32];
+
+products.forEach(function(a){
+    var productOption = `<option>${a}</option>`
+    document.querySelector('.products').insertAdjacentHTML("beforeend", productOption);
+})
+
+sizeSelect(cap)
+
+document.querySelector('.products').addEventListener('input', function(){
+    if(this.value == '모자'){
+        sizeSelect(cap);
+    } else if(this.value == '셔츠'){
+        sizeSelect(shirt);
+    } else{
+        sizeSelect(pants);
+    }
+})
+
+function sizeSelect(sizeList){
+    document.querySelector('.size').innerHTML = '';
+    sizeList.forEach(function(a){
+        var sizeOption = `<option>${a}</option>`;
+        document.querySelector('.size').insertAdjacentHTML("beforeend", sizeOption);
+    })
+};
