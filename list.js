@@ -10,6 +10,7 @@ function getProducts(array) {
         <img src="https://via.placeholder.com/600" class="w-100">
         <h5>${a.title}</h5>
         <p>가격 : ${a.price}</p>
+        <button class="buy">구매</button>
     </div>`;
 
         document.querySelector('.row').insertAdjacentHTML("beforeend", card)
@@ -32,24 +33,26 @@ document.querySelector('#more').addEventListener('click', function () {
         })
 })
 
+document.querySelector('#low-price').addEventListener('click', function () {
+    products.sort(function (a, b) { return a.price - b.price });
+    document.querySelector('.row').innerHTML = '';
+    getProducts(products);
+})
 
+document.querySelector('#reverse').addEventListener('click', function () {
+    products.sort(function (a, b) {
+        if (a.title < b.title) return 1;
+        if (a.title > b.title) return -1;
+        if (a.title === b.title) return 0;
+    });
+    document.querySelector('.row').innerHTML = '';
+    getProducts(products);
+})
 
-
-// for (let i = 0; i < products.length; i++) {
-//     var a = `<div class="col-sm-4">
-//                 <img src="https://via.placeholder.com/600" class="w-100">
-//                 <h5>${products[i].title}</h5>
-//                 <p>가격 : ${products[i].price}</p>
-//             </div>`;
-//     document.querySelector('.row').insertAdjacentHTML("beforeend", a);
-// }
-
-// document.querySelector('#more').addEventListener('click', function () {
-//     fetch('https://codingapple1.github.io/js/more1.json')
-//         .then(res => res.json())
-//         .then(function (data) {
-//             console.log(data);
-//         }).catch(function (error) {
-//             console.log('오류남');
-//         });
-// });
+document.querySelector('#sixty').addEventListener('click', function () {
+    var new_products = products.filter(function (a) {
+        return a.price <= 60000;
+    })
+    document.querySelector('.row').innerHTML = '';
+    getProducts(new_products);
+})
