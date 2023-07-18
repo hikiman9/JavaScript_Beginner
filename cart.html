@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        var product = JSON.parse(localStorage.getItem('cart'));
+        console.log(product);
+        product.forEach(element => {
+            var a = `<p>${element}</p>`;
+            document.querySelector('body').insertAdjacentHTML("beforeend", a);
+        });
+    </script>
+</body>
+
+</html>

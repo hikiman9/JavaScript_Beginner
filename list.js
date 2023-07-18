@@ -10,7 +10,7 @@ function getProducts(array) {
         <img src="https://via.placeholder.com/600" class="w-100">
         <h5>${a.title}</h5>
         <p>가격 : ${a.price}</p>
-        <button class="buy">구매</button>
+        <button class="btn btn-danger buy">구매</button>
     </div>`;
 
         document.querySelector('.row').insertAdjacentHTML("beforeend", card)
@@ -56,3 +56,17 @@ document.querySelector('#sixty').addEventListener('click', function () {
     document.querySelector('.row').innerHTML = '';
     getProducts(new_products);
 })
+
+for (let i = 0; i < products.length; i++) {
+    document.querySelectorAll('.buy')[i].addEventListener('click', function () {
+        var product_like = this.previousSibling.previousSibling.previousSibling.previousSibling.innerHTML;
+        if (localStorage.length == 0) {
+            localStorage.setItem('cart', JSON.stringify([product_like]));
+        } else {
+            var new_cart = JSON.parse(localStorage.getItem('cart'));
+            new_cart.push(product_like);
+            localStorage.setItem('cart', JSON.stringify(new_cart));
+        }
+    })
+}
+
